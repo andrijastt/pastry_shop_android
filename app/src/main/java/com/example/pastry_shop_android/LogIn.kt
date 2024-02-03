@@ -9,7 +9,7 @@ import android.widget.Toast
 
 class LogIn : AppCompatActivity() {
 
-    val users: List<User> = listOf(
+    public val users: List<User> = listOf(
         User(1, "andrija", "andrija123", "Andrija",
             "Stojanovic", "+381600800249", "Vladetina"),
         User(2, "marija", "marija123", "Marija",
