@@ -7,22 +7,10 @@
     android:background="@drawable/background"
     tools:context=".Buyer">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <include layout="@layout/header"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Slatki Zalogaj"
-            android:textStyle="bold|italic"
-            android:textSize="40dp"
-            android:textColor="@color/black"/>
-
-    </LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="10sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
