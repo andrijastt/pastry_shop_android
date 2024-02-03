@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogIn"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_centerHorizontal="true"
+        android:layout_width="330dp"
+        android:layout_height="370dp"
+        android:translationY="30dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Slatki Zalogaj"
+            android:layout_gravity="top|center"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold|italic"
+            android:textSize="36dp"
+            android:textColor="@color/black"
+           />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prijavi se"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold|italic"
+            android:textSize="30dp"
+            android:textColor="@color/black"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="text"
+            android:id="@+id/username"
+            android:layout_centerHorizontal="true"
+            android:background="@color/cardview_shadow_start_color"
+            android:layout_margin="12dp"
+            android:hint="  Korisnicko ime"
+            android:textColorHint="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:clipToOutline="true"
+            android:inputType="textPassword"
+            android:hint="  Lozinka"
+            android:textColorHint="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:text="Prijavi se (Kupac)"
+            android:background="@color/yellow"
+            android:textSize="19dp"
+            android:textAllCaps="false"
+            android:onClick="login"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kontakt informacije"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_marginLeft="3dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: slatki_zalogaj@gmail.com"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_margin="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Radno vreme: 08:00-21:00"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_margin="3dp"/>
+    </LinearLayout>
+
+</RelativeLayout>
