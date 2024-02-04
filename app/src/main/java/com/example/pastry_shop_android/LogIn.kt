@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import com.google.gson.Gson
 
 class LogIn : AppCompatActivity() {
 
@@ -26,14 +27,17 @@ class LogIn : AppCompatActivity() {
         val password: String = findViewById<EditText>(R.id.password).text.toString()
 
         var found = false
+        var userFound: User = User()
         for(user in users){
             if(user.username.equals(username) && user.password.equals(password)){
                 found = true
+                userFound = user
                 break
             }
         }
         if(found){
             val intent = Intent(this.applicationContext, Buyer::class.java)
+            intent.putExtra("user", Gson().toJson(userFound))
             startActivity(intent)
         }
         else {

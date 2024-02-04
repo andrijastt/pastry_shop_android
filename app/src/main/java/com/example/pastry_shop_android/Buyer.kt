@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.helper.widget.Carousel
 
 
 class Buyer : AppCompatActivity() {
@@ -25,5 +26,7 @@ class Buyer : AppCompatActivity() {
             }
             popUpMenu.show()
         }
+
+        val carousel: Carousel = findViewById(R.id.carousel)
     }
 }
