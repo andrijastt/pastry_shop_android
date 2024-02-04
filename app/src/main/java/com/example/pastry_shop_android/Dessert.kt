@@ -5,7 +5,7 @@ class Dessert(
     val name: String = "dessert",
     val description: String = "description",
     val ingredients: String = "ingredients",
-    val picture: String = "kolac_1.jpg",
+    val picture: Int = 0,
     val price: Int = 1000,
     val promotion: Boolean = false,
     val isCake: Boolean = false,
