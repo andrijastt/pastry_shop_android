@@ -1,16 +1,14 @@
 package com.example.pastry_shop_android
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 
-class DessertBaseAdapter(private val desserts: ArrayList<Dessert>):
+class DessertBaseAdapter(private val desserts: List<Dessert>):
     RecyclerView.Adapter<DessertBaseAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){

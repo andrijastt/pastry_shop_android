@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class Buyer : AppCompatActivity() {
 
-    val desserts: ArrayList<Dessert> = arrayListOf(
+    val desserts: List<Dessert> = listOf(
         Dessert(1, "Kolac1", "Opis1", "Sastojci1", R.drawable.kolac_1, 100, true, false),
         Dessert(2, "Kolac2", "Opis2", "Sastojci2", R.drawable.kolac_2, 200, false, false),
         Dessert(3, "Kolac3", "Opis3", "Sastojci3", R.drawable.kolac_3, 300, true, false),
@@ -45,7 +45,16 @@ class Buyer : AppCompatActivity() {
         var listView: RecyclerView = findViewById<RecyclerView>(R.id.listOfDesserts)
         listView.layoutManager = LinearLayoutManager(this)
         listView.setHasFixedSize(true)
-        listView.adapter = DessertBaseAdapter(desserts)
+
+        val onlyDessert: List<Dessert> = desserts.filter { dessert -> !dessert.isCake}
+        listView.adapter = DessertBaseAdapter(onlyDessert)
+
+        var listViewCakes: RecyclerView = findViewById<RecyclerView>(R.id.listOfCakes)
+        listViewCakes.layoutManager = LinearLayoutManager(this)
+        listViewCakes.setHasFixedSize(true)
+
+        val onlyCakes: List<Dessert> = desserts.filter { dessert -> dessert.isCake}
+        listViewCakes.adapter = DessertBaseAdapter(onlyCakes)
 
     }
 }
