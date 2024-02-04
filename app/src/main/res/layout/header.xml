@@ -11,7 +11,8 @@
         android:text="Slatki zalogaj"
         android:textColor="@color/black"
         android:textSize="40sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:layout_marginLeft="5sp"/>
 
     <ImageView
         android:id="@+id/dropdown_menu"
