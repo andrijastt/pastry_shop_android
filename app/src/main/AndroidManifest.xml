@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Buyer" android:exported="true">
-
-        </activity>
+        <activity android:name=".Buyer" android:exported="false"/>
+        <activity android:name=".PasswordData" android:exported="false"/>
+        <activity android:name=".UserData" android:exported="false"/>
     </application>
 
 </manifest>
