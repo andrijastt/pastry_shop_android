@@ -7,10 +7,11 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class LogIn : AppCompatActivity() {
 
-    public val users: List<User> = listOf(
+    public var users: List<User> = listOf(
         User(1, "andrija", "andrija123", "Andrija",
             "Stojanovic", "+381600800249", "Vladetina"),
         User(2, "marija", "marija123", "Marija",
@@ -23,11 +24,18 @@ class LogIn : AppCompatActivity() {
     }
 
     fun login(view: View) {
+
+        val temp: String? = intent.getStringExtra("users")
+        if(temp != null){
+            val itemType = object : TypeToken<List<User>>(){}.type
+            users = Gson().fromJson(temp, itemType)
+        }
+
         val username: String = findViewById<EditText>(R.id.username).text.toString()
         val password: String = findViewById<EditText>(R.id.password).text.toString()
 
         var found = false
-        var userFound: User = User()
+        var userFound = User()
         for(user in users){
             if(user.username.equals(username) && user.password.equals(password)){
                 found = true
@@ -37,6 +45,7 @@ class LogIn : AppCompatActivity() {
         }
         if(found){
             val intent = Intent(this.applicationContext, Buyer::class.java)
+            intent.putExtra("users", Gson().toJson(users))
             intent.putExtra("user", Gson().toJson(userFound))
             startActivity(intent)
         }

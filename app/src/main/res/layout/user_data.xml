@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".UserData">
+
+    <include layout="@layout/header"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="5sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="5sp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Licni podaci"
+            android:layout_gravity="top|center"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold|italic"
+            android:textSize="36sp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="text"
+            android:background="@color/cardview_shadow_start_color"
+            android:layout_margin="12dp"
+            android:hint="  Korisnicko ime"
+            android:textColorHint="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:inputType="text"
+            android:hint="  Ime"
+            android:textColorHint="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:inputType="text"
+            android:background="@color/cardview_shadow_start_color"
+            android:layout_margin="12dp"
+            android:hint="  Prezime"
+            android:textColorHint="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:inputType="text"
+            android:hint="  Adresa"
+            android:textColorHint="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/telephone"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/cardview_shadow_start_color"
+            android:inputType="text"
+            android:hint="  Kontakt telefon"
+            android:textColorHint="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/userChange"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Izmeni podatke"
+            android:background="@color/yellow"
+            android:textSize="19sp"
+            android:textAllCaps="false"
+            android:layout_marginBottom="10sp"
+            android:onClick="changeUserData"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

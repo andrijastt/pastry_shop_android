@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Pocetna stranica"/>
+    <item
+        android:id="@+id/home"
+        android:title="Pocetna stranica"
+        />
 
-    <item android:title="Izmeni licne podatke"/>
+    <item
+        android:id="@+id/userData"
+        android:title="Izmeni licne podatke"/>
 
-    <item android:title="Izmeni lozinku"/>
+    <item
+        android:id="@+id/passwordData"
+        android:title="Izmeni lozinku"/>
 
-    <item android:title="Obavestenja"/>
+    <item
+        android:id="@+id/notifications"
+        android:title="Obavestenja"
+        />
 
-    <item android:title="Korpa"/>
+    <item
+        android:id="@+id/cart"
+        android:title="Korpa"/>
 
-    <item android:title="Odjavi se"/>
+    <item
+        android:id="@+id/logOut"
+        android:title="Odjavi se"/>
 </menu>
