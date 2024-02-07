@@ -2,9 +2,11 @@ package com.example.pastry_shop_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +65,12 @@ class Buyer : AppCompatActivity() {
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         startActivity(intent)
                     }
+                    R.id.notifications -> {
+                        var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("user", this.intent.getStringExtra("user"))
+                        intent.putExtra("users", this.intent.getStringExtra("users"))
+                        startActivity(intent)
+                    }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
                 }
                 true
@@ -83,6 +91,9 @@ class Buyer : AppCompatActivity() {
 
         val onlyCakes: List<Dessert> = desserts.filter { dessert -> dessert.isCake}
         listViewCakes.adapter = DessertBaseAdapter(onlyCakes)
+
+        val carousel = findViewById<ViewFlipper>(R.id.carousel)
+        val promotions: List<Dessert> = desserts.filter { dessert -> dessert.promotion}
 
     }
 }

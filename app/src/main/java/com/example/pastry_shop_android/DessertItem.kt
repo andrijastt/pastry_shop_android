@@ -76,6 +76,12 @@ class DessertItem: AppCompatActivity() {
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         startActivity(intent)
                     }
+                    R.id.notifications -> {
+                        var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("user", this.intent.getStringExtra("user"))
+                        intent.putExtra("users", this.intent.getStringExtra("users"))
+                        startActivity(intent)
+                    }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
                 }
                 true

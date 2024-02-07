@@ -25,6 +25,7 @@
         <activity android:name=".PasswordData" android:exported="false"/>
         <activity android:name=".UserData" android:exported="false"/>
         <activity android:name=".DessertItem" android:exported="false"/>
+        <activity android:name=".NotificationActivity" android:exported="false"/>
     </application>
 
 </manifest>
