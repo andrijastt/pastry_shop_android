@@ -1,10 +1,13 @@
 package com.example.pastry_shop_android
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -15,8 +18,7 @@ class DessertBaseAdapter(private val desserts: List<Dessert>):
         val dessertImage : ImageView = itemView.findViewById(R.id.img)
         val dessertName : TextView = itemView.findViewById(R.id.dessertName)
         val dessertDescription : TextView = itemView.findViewById(R.id.dessertDescription)
-
-
+        val dessertMain : RelativeLayout = itemView.findViewById(R.id.dessertMain)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -33,6 +35,17 @@ class DessertBaseAdapter(private val desserts: List<Dessert>):
         holder.dessertImage.setImageResource(currentItem.picture)
         holder.dessertName.setText(currentItem.name)
         holder.dessertDescription.setText(currentItem.description)
+
+        holder.dessertMain.setOnClickListener(View.OnClickListener {
+            var intent: Intent = Intent(holder.itemView.context, DessertItem::class.java)
+            intent.putExtra("dessertItemImg", currentItem.picture)
+            intent.putExtra("dessertItemName", currentItem.name)
+            intent.putExtra("dessertItemPrice", currentItem.price)
+            intent.putExtra("dessertItemDescription", currentItem.description)
+            intent.putExtra("dessertItemIngredients", currentItem.ingredients)
+
+            holder.itemView.context.startActivity(intent)
+        })
     }
 
 }
