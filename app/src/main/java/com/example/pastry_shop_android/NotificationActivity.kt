@@ -6,7 +6,10 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class NotificationActivity: AppCompatActivity()  {
 
@@ -26,29 +29,34 @@ class NotificationActivity: AppCompatActivity()  {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
                         var intent = Intent(this.applicationContext, UserData::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
                         var intent = Intent(this.applicationContext, PasswordData::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
@@ -58,8 +66,20 @@ class NotificationActivity: AppCompatActivity()  {
             popUpMenu.show()
         }
 
-        val notificationsView = findViewById<RecyclerView>(R.id.userNotifications)
+        val stringTemp = intent.getStringExtra("notifications")
+        val itemType = object : TypeToken<List<Notification>>(){}.type
+        var notifications: List<Notification> = listOf()
+        if(stringTemp != null)
+            notifications = Gson().fromJson(stringTemp, itemType)
 
+        val currentUser: User = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+
+        val currentNotifications: List<Notification> = notifications.filter { notification -> notification.user.id == currentUser.id }
+
+        val notificationsView = findViewById<RecyclerView>(R.id.userNotifications)
+        notificationsView.layoutManager = LinearLayoutManager(this)
+        notificationsView.setHasFixedSize(true)
+        notificationsView.adapter = NotificationBaseAdapter(currentNotifications)
     }
 
 }

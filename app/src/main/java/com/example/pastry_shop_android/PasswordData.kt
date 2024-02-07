@@ -29,29 +29,34 @@ class PasswordData: AppCompatActivity() {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
                         var intent = Intent(this.applicationContext, UserData::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
                         var intent = Intent(this.applicationContext, PasswordData::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()

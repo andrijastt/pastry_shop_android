@@ -27,7 +27,7 @@ class NotificationBaseAdapter (private val notifactions: List<Notification>):
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = notifactions[position]
-        val temp = currentItem.items.size
+        val temp = currentItem.items.size - 1
         for(i in 0..temp){
             holder.notificationText.append(currentItem.itemAmount[i].toString() + "x " + currentItem.items[i].name)
             if(i != temp){
@@ -35,7 +35,8 @@ class NotificationBaseAdapter (private val notifactions: List<Notification>):
             }
             holder.notificationText.append(" ")
         }
-
+        if(currentItem.approved) holder.notificationText.append("je prihvacena")
+        else holder.notificationText.append("je odbijena")
     }
 
 }
