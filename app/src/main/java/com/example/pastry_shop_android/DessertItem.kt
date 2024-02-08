@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
+import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class DessertItem: AppCompatActivity() {
 
@@ -55,36 +59,62 @@ class DessertItem: AppCompatActivity() {
 
                     R.id.home -> {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
-                        var intent = Intent(this.applicationContext, UserData::class.java)
+                        var intent =Intent(this.applicationContext, UserData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
-                        var intent = Intent(this.applicationContext, PasswordData::class.java)
+                        var intent =Intent(this.applicationContext, PasswordData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
+                        intent.removeExtra("user")
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
+                        startActivity(intent)
+                    }
+                    R.id.cart -> {
+                        var intent = Intent(this.applicationContext, CartActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
+                        intent.putExtra("user", this.intent.getStringExtra("user"))
+                        intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
@@ -92,6 +122,41 @@ class DessertItem: AppCompatActivity() {
                 true
             }
             popUpMenu.show()
+        }
+    }
+
+    fun addToCartAction(view: View){
+
+        var numberString = findViewById<EditText>(R.id.numberOfItems).text.toString()
+        var number = numberString.toInt()
+        if(number <= 0){
+            Toast.makeText(this, "Uneli ste broj manji 0", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+        var cartItems: ArrayList<CartItem> = arrayListOf()
+        val itemType = object : TypeToken<ArrayList<CartItem>>(){}.type
+
+        val temp: String? = intent.getStringExtra("carts")
+        if(temp != null){
+            cartItems = Gson().fromJson(intent.getStringExtra("carts"), itemType)
+        }
+
+        var dessertID = this.intent.getIntExtra("dessertItemID", -1)
+
+        var cartItem = cartItems.find { item -> item.user.id == curUser.id && item.dessert.id == dessertID}
+
+        if(cartItem != null){
+            var index = cartItems.indexOf(cartItem)
+            cartItems[index].amount += number
+        }
+        else {
+            var curDessert = Gson().fromJson(this.intent.getStringExtra("dessertItem"), Dessert::class.java)
+            cartItem = CartItem(curUser, curDessert, number)
+            cartItems.add(cartItem)
+            this.intent.putExtra("carts", Gson().toJson(cartItems))
+            Toast.makeText(this, "Uspesno ste dodali kolac u korpu", Toast.LENGTH_SHORT).show()
         }
     }
 

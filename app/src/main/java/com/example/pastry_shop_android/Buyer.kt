@@ -29,51 +29,62 @@ class Buyer : AppCompatActivity() {
 
                     R.id.home -> {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
                         var intent =Intent(this.applicationContext, UserData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
-
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
                         var intent =Intent(this.applicationContext, PasswordData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.removeExtra("user")
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.cart -> {
                         var intent = Intent(this.applicationContext, CartActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
@@ -84,8 +95,8 @@ class Buyer : AppCompatActivity() {
         }
 
         val stringTemp = intent.getStringExtra("desserts")
-        val itemType = object : TypeToken<List<Dessert>>(){}.type
-        var desserts: List<Dessert> = listOf()
+        val itemType = object : TypeToken<ArrayList<Dessert>>(){}.type
+        var desserts: ArrayList<Dessert> = arrayListOf()
         if(stringTemp != null)
             desserts = Gson().fromJson(stringTemp, itemType)
 
@@ -93,15 +104,17 @@ class Buyer : AppCompatActivity() {
         listView.layoutManager = LinearLayoutManager(this)
         listView.setHasFixedSize(true)
 
+        var curUsr = Gson().fromJson(this.intent.getStringExtra("user"), User::class.java)
+
         val onlyDessert: List<Dessert> = desserts.filter { dessert -> !dessert.isCake}
-        listView.adapter = DessertBaseAdapter(onlyDessert)
+        listView.adapter = DessertBaseAdapter(onlyDessert, curUsr)
 
         var listViewCakes: RecyclerView = findViewById<RecyclerView>(R.id.listOfCakes)
         listViewCakes.layoutManager = LinearLayoutManager(this)
         listViewCakes.setHasFixedSize(true)
 
         val onlyCakes: List<Dessert> = desserts.filter { dessert -> dessert.isCake}
-        listViewCakes.adapter = DessertBaseAdapter(onlyCakes)
+        listViewCakes.adapter = DessertBaseAdapter(onlyCakes, curUsr)
 
         val carousel = findViewById<ViewFlipper>(R.id.carousel)
         val promotions: List<Dessert> = desserts.filter { dessert -> dessert.promotion}

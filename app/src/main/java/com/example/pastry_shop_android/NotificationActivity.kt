@@ -27,51 +27,62 @@ class NotificationActivity: AppCompatActivity()  {
 
                     R.id.home -> {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
                         var intent =Intent(this.applicationContext, UserData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
-
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
                         var intent =Intent(this.applicationContext, PasswordData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.removeExtra("user")
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.cart -> {
                         var intent = Intent(this.applicationContext, CartActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
@@ -82,8 +93,8 @@ class NotificationActivity: AppCompatActivity()  {
         }
 
         val stringTemp = intent.getStringExtra("notifications")
-        val itemType = object : TypeToken<List<Notification>>(){}.type
-        var notifications: List<Notification> = listOf()
+        val itemType = object : TypeToken<ArrayList<Notification>>(){}.type
+        var notifications: ArrayList<Notification> = arrayListOf()
         if(stringTemp != null)
             notifications = Gson().fromJson(stringTemp, itemType)
 

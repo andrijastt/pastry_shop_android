@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,51 +29,62 @@ class CartActivity: AppCompatActivity() {
 
                     R.id.home -> {
                         var intent = Intent(this.applicationContext, Buyer::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
                         var intent =Intent(this.applicationContext, UserData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
-
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
                         var intent =Intent(this.applicationContext, PasswordData::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.removeExtra("user")
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
                         var intent = Intent(this.applicationContext, NotificationActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     R.id.cart -> {
                         var intent = Intent(this.applicationContext, CartActivity::class.java)
+                        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
                         intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        intent.putExtra("comments", this.intent.getStringExtra("comments"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()
@@ -103,5 +115,11 @@ class CartActivity: AppCompatActivity() {
         userCartItemsView.layoutManager = LinearLayoutManager(this)
         userCartItemsView.setHasFixedSize(true)
         userCartItemsView.adapter = CartBaseAdapter(userCartItems)
+
+        var totalPrice = 0
+        for(item in userCartItems) totalPrice += item.amount * item.dessert.price
+
+        var totalPriceText = findViewById<TextView>(R.id.money)
+        totalPriceText.text = totalPrice.toString() + " RSD"
     }
 }

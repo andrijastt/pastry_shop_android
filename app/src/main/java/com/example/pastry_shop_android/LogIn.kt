@@ -1,5 +1,6 @@
 package com.example.pastry_shop_android
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,14 +12,14 @@ import com.google.gson.reflect.TypeToken
 
 class LogIn : AppCompatActivity() {
 
-    public var users: List<User> = listOf(
+    public var users: ArrayList<User> = arrayListOf(
         User(1, "andrija", "andrija123", "Andrija",
             "Stojanovic", "+381600800249", "Vladetina"),
         User(2, "marija", "marija123", "Marija",
             "Nikolic", "+381644960196", "Dalmatinska")
     )
 
-    val desserts: List<Dessert> = listOf(
+    val desserts: ArrayList<Dessert> = arrayListOf(
         Dessert(1, "Kolac1", "Opis1", "Sastojci1", R.drawable.kolac_1, 100, true, false),
         Dessert(2, "Kolac2", "Opis2", "Sastojci2", R.drawable.kolac_2, 200, false, false),
         Dessert(3, "Kolac3", "Opis3", "Sastojci3", R.drawable.kolac_3, 300, true, false),
@@ -34,13 +35,14 @@ class LogIn : AppCompatActivity() {
         Dessert(13, "Torta6", "Opis13", "Sastojci13", R.drawable.torta_6, 6000, true, true)
     )
 
-    public var notifications: List<Notification> = listOf(
+    public var notifications: ArrayList<Notification> = arrayListOf(
         Notification(users[0], listOf(desserts[0], desserts[4], desserts[7]), listOf(1, 2, 3), true),
         Notification(users[0], listOf(desserts[1], desserts[2]), listOf(1, 3), false),
         Notification(users[1], listOf(desserts[2], desserts[8], desserts[3]), listOf(3, 2, 4), true)
     )
 
-    public var cartItems: List<CartItem> = listOf()
+    public var cartItems: ArrayList<CartItem> = arrayListOf()
+    public var comments: ArrayList<Comment> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,6 @@ class LogIn : AppCompatActivity() {
     }
 
     fun login(view: View) {
-
         val temp: String? = intent.getStringExtra("users")
         if(temp != null){
             val itemType = object : TypeToken<List<User>>(){}.type
@@ -76,6 +77,9 @@ class LogIn : AppCompatActivity() {
             intent.putExtra("notifications", gson.toJson(notifications))
             if(intent.getStringExtra("carts") != null){
                 intent.putExtra("carts", gson.toJson(cartItems))
+            }
+            if(intent.getStringExtra("comments") != null){
+                intent.putExtra("comments", gson.toJson(comments))
             }
             startActivity(intent)
         }
