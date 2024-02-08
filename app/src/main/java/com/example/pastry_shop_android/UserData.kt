@@ -2,6 +2,7 @@ package com.example.pastry_shop_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -97,6 +98,8 @@ class UserData: AppCompatActivity() {
 
         val user: User = Gson().fromJson(this.intent.getStringExtra("user"), User::class.java)
 
+        Log.i("userDataBefore", Gson().toJson(user))
+
         val username = findViewById<EditText>(R.id.username).text.toString()
         val firstname = findViewById<EditText>(R.id.firstname).text.toString()
         val lastname = findViewById<EditText>(R.id.lastname).text.toString()
@@ -125,6 +128,8 @@ class UserData: AppCompatActivity() {
         findViewById<EditText>(R.id.lastname).text = null
         findViewById<EditText>(R.id.address).text = null
         findViewById<EditText>(R.id.telephone).text = null
+
+        Log.i("userDataAfter", Gson().toJson(user))
 
         intent.putExtra("user", Gson().toJson(user))
         intent.putExtra("users", Gson().toJson(users))

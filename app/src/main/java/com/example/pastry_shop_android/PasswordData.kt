@@ -2,6 +2,7 @@ package com.example.pastry_shop_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -97,6 +98,8 @@ class PasswordData: AppCompatActivity() {
 
         val user: User = Gson().fromJson(this.intent.getStringExtra("user"), User::class.java)
 
+        Log.i("passwordDataBefore", Gson().toJson(user))
+
         val oldPassword = findViewById<EditText>(R.id.oldPassword).text.toString()
         val newPassword = findViewById<EditText>(R.id.newPassword).text.toString()
         val newPasswordConfirm = findViewById<EditText>(R.id.newPasswordConfirm).text.toString()
@@ -121,6 +124,8 @@ class PasswordData: AppCompatActivity() {
         findViewById<EditText>(R.id.oldPassword).text = null
         findViewById<EditText>(R.id.newPassword).text = null
         findViewById<EditText>(R.id.newPasswordConfirm).text = null
+
+        Log.i("passwordDataAfter", Gson().toJson(user))
 
         intent.putExtra("user", Gson().toJson(user))
         intent.putExtra("users", Gson().toJson(users))

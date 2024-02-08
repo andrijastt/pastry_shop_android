@@ -167,40 +167,41 @@ class DessertItem: AppCompatActivity() {
             }
             else Toast.makeText(this, "No text for comment to be added", Toast.LENGTH_SHORT).show()
         }
-    }
 
-    fun addToCartAction(view: View){
+        var addToCartButton : Button= findViewById<Button>(R.id.addToCart)
+        addToCartButton.setOnClickListener {
+            var numberString = findViewById<EditText>(R.id.numberOfItems).text.toString()
+            var number = numberString.toInt()
+            if(number <= 0){
+                Toast.makeText(this, "Uneli ste broj manji 0", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+                var cartItems: ArrayList<CartItem> = arrayListOf()
+                val itemType = object : TypeToken<ArrayList<CartItem>>(){}.type
 
-        var numberString = findViewById<EditText>(R.id.numberOfItems).text.toString()
-        var number = numberString.toInt()
-        if(number <= 0){
-            Toast.makeText(this, "Uneli ste broj manji 0", Toast.LENGTH_SHORT).show()
-            return
-        }
+                val temp: String? = intent.getStringExtra("carts")
+                if(temp != null){
+                    cartItems = Gson().fromJson(intent.getStringExtra("carts"), itemType)
+                }
 
-        val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
-        var cartItems: ArrayList<CartItem> = arrayListOf()
-        val itemType = object : TypeToken<ArrayList<CartItem>>(){}.type
+                var dessertID = this.intent.getIntExtra("dessertItemID", -1)
 
-        val temp: String? = intent.getStringExtra("carts")
-        if(temp != null){
-            cartItems = Gson().fromJson(intent.getStringExtra("carts"), itemType)
-        }
+                var cartItem = cartItems.find { item -> item.user.id == curUser.id && item.dessert.id == dessertID}
 
-        var dessertID = this.intent.getIntExtra("dessertItemID", -1)
+                if(cartItem != null){
+                    var index = cartItems.indexOf(cartItem)
+                    cartItems[index].amount += number
+                }
+                else {
+                    var curDessert = Gson().fromJson(this.intent.getStringExtra("dessertItem"), Dessert::class.java)
+                    cartItem = CartItem(curUser, curDessert, number)
+                    cartItems.add(cartItem)
+                    this.intent.putExtra("carts", Gson().toJson(cartItems))
+                    Toast.makeText(this, "Uspesno ste dodali kolac u korpu", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-        var cartItem = cartItems.find { item -> item.user.id == curUser.id && item.dessert.id == dessertID}
-
-        if(cartItem != null){
-            var index = cartItems.indexOf(cartItem)
-            cartItems[index].amount += number
-        }
-        else {
-            var curDessert = Gson().fromJson(this.intent.getStringExtra("dessertItem"), Dessert::class.java)
-            cartItem = CartItem(curUser, curDessert, number)
-            cartItems.add(cartItem)
-            this.intent.putExtra("carts", Gson().toJson(cartItems))
-            Toast.makeText(this, "Uspesno ste dodali kolac u korpu", Toast.LENGTH_SHORT).show()
         }
     }
 }
