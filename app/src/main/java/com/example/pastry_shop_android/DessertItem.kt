@@ -1,19 +1,25 @@
 package com.example.pastry_shop_android
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
+import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -125,12 +131,41 @@ class DessertItem: AppCompatActivity() {
             popUpMenu.show()
         }
 
+        val itemTypeComment= object : TypeToken<ArrayList<Comment>>(){}.type
+        var comments: List<Comment> = arrayListOf()
+        comments = Gson().fromJson(intent.getStringExtra("comments"), itemTypeComment)
+
+        var curDessert = Gson().fromJson(this.intent.getStringExtra("dessertItem"), Dessert::class.java)
+        comments = comments.filter { comment -> comment.dessert.id == curDessert.id }
+
+        var commentSection = findViewById<RecyclerView>(R.id.listOfComments)
+        commentSection.layoutManager = LinearLayoutManager(this)
+        commentSection.setHasFixedSize(true)
+        commentSection.adapter = CommentBaseAdapter(comments)
+
         var addCommentButton : Button= findViewById<Button>(R.id.addComment)
         addCommentButton.setOnClickListener {
             var comment = findViewById<EditText>(R.id.newComment).text.toString()
             if(!comment.equals("")){
+                var curDessert = Gson().fromJson(this.intent.getStringExtra("dessertItem"), Dessert::class.java)
+                val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+                var newComment = Comment(curUser, curDessert, comment)
 
+                val itemTypeComment= object : TypeToken<ArrayList<Comment>>(){}.type
+                var comments: ArrayList<Comment> = arrayListOf()
+                comments = Gson().fromJson(intent.getStringExtra("comments"), itemTypeComment)
+                comments.add(newComment)
+                intent.putExtra("comments", Gson().toJson(comments))
+
+                var newComments: List<Comment> = comments
+                newComments = newComments.filter { comment -> comment.dessert.id == curDessert.id }
+
+                var commentSection = findViewById<RecyclerView>(R.id.listOfComments)
+                commentSection.adapter = CommentBaseAdapter(newComments)
+
+                Toast.makeText(this, "Comment added", Toast.LENGTH_SHORT).show()
             }
+            else Toast.makeText(this, "No text for comment to be added", Toast.LENGTH_SHORT).show()
         }
     }
 

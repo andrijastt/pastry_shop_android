@@ -140,8 +140,10 @@ class Buyer : AppCompatActivity() {
         val onlyCakes: List<Dessert> = desserts.filter { dessert -> dessert.isCake}
         listViewCakes.adapter = DessertBaseAdapter(onlyCakes, curUsr, users, notifications, carts, comments, desserts)
 
-        val carousel = findViewById<ViewFlipper>(R.id.carousel)
+        val carousel = findViewById<RecyclerView>(R.id.listOfPromotions)
         val promotions: List<Dessert> = desserts.filter { dessert -> dessert.promotion}
-
+        carousel.layoutManager = LinearLayoutManager(this)
+        carousel.setHasFixedSize(true)
+        carousel.adapter = DessertBaseAdapter(promotions, curUsr, users, notifications, carts, comments, desserts)
     }
 }
