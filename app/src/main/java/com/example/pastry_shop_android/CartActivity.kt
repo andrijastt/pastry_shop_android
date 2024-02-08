@@ -2,6 +2,7 @@ package com.example.pastry_shop_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -121,5 +122,28 @@ class CartActivity: AppCompatActivity() {
 
         var totalPriceText = findViewById<TextView>(R.id.money)
         totalPriceText.text = totalPrice.toString() + " RSD"
+    }
+
+    fun acceptOrder(view: View){
+        var cartItems: List<CartItem> = listOf()
+        val itemType = object : TypeToken<List<CartItem>>(){}.type
+
+        val temp: String? = intent.getStringExtra("carts")
+        if(temp != null){
+            cartItems = Gson().fromJson(intent.getStringExtra("carts"), itemType)
+        }
+        val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+        cartItems = cartItems.filter { item -> item.user.id != curUser.id }
+
+        var intent = Intent(this.applicationContext, Buyer::class.java)
+        intent.putExtra("desserts", this.intent.getStringExtra("desserts"))
+        intent.putExtra("user", this.intent.getStringExtra("user"))
+        intent.putExtra("users", this.intent.getStringExtra("users"))
+        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+        intent.putExtra("carts", Gson().toJson(cartItems))
+        intent.putExtra("comments", this.intent.getStringExtra("comments"))
+        startActivity(intent)
+
+        Toast.makeText(this, "Porudzbina poslata:", Toast.LENGTH_SHORT).show()
     }
 }

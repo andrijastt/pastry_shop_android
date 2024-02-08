@@ -159,5 +159,4 @@ class DessertItem: AppCompatActivity() {
             Toast.makeText(this, "Uspesno ste dodali kolac u korpu", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

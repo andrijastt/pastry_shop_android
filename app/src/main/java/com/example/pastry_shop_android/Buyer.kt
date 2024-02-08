@@ -94,11 +94,35 @@ class Buyer : AppCompatActivity() {
             popUpMenu.show()
         }
 
-        val stringTemp = intent.getStringExtra("desserts")
-        val itemType = object : TypeToken<ArrayList<Dessert>>(){}.type
+        val stringTempDesserts = intent.getStringExtra("desserts")
+        val itemTypeDesserts = object : TypeToken<ArrayList<Dessert>>(){}.type
         var desserts: ArrayList<Dessert> = arrayListOf()
-        if(stringTemp != null)
-            desserts = Gson().fromJson(stringTemp, itemType)
+        if(stringTempDesserts != null)
+            desserts = Gson().fromJson(stringTempDesserts, itemTypeDesserts)
+
+        val stringTempUsers = intent.getStringExtra("users")
+        val itemTypeUsers = object : TypeToken<ArrayList<User>>(){}.type
+        var users: ArrayList<User> = arrayListOf()
+        if(stringTempUsers != null)
+            users = Gson().fromJson(stringTempUsers, itemTypeUsers)
+
+        val stringTempNotifications = intent.getStringExtra("notifications")
+        val itemTypeNotifications = object : TypeToken<ArrayList<Notification>>(){}.type
+        var notifications: ArrayList<Notification> = arrayListOf()
+        if(stringTempNotifications != null)
+            notifications = Gson().fromJson(stringTempNotifications, itemTypeNotifications)
+
+        val stringTempCarts = intent.getStringExtra("carts")
+        val itemTypeCarts = object : TypeToken<ArrayList<CartItem>>(){}.type
+        var carts: ArrayList<CartItem> = arrayListOf()
+        if(stringTempCarts != null)
+            carts = Gson().fromJson(stringTempCarts, itemTypeCarts)
+
+        val stringTempComments = intent.getStringExtra("comments")
+        val itemTypeComments = object : TypeToken<ArrayList<Comment>>(){}.type
+        var comments: ArrayList<Comment> = arrayListOf()
+        if(stringTempComments != null)
+            comments = Gson().fromJson(stringTempComments, itemTypeComments)
 
         var listView: RecyclerView = findViewById<RecyclerView>(R.id.listOfDesserts)
         listView.layoutManager = LinearLayoutManager(this)
@@ -107,14 +131,14 @@ class Buyer : AppCompatActivity() {
         var curUsr = Gson().fromJson(this.intent.getStringExtra("user"), User::class.java)
 
         val onlyDessert: List<Dessert> = desserts.filter { dessert -> !dessert.isCake}
-        listView.adapter = DessertBaseAdapter(onlyDessert, curUsr)
+        listView.adapter = DessertBaseAdapter(onlyDessert, curUsr, users, notifications, carts, comments, desserts)
 
         var listViewCakes: RecyclerView = findViewById<RecyclerView>(R.id.listOfCakes)
         listViewCakes.layoutManager = LinearLayoutManager(this)
         listViewCakes.setHasFixedSize(true)
 
         val onlyCakes: List<Dessert> = desserts.filter { dessert -> dessert.isCake}
-        listViewCakes.adapter = DessertBaseAdapter(onlyCakes, curUsr)
+        listViewCakes.adapter = DessertBaseAdapter(onlyCakes, curUsr, users, notifications, carts, comments, desserts)
 
         val carousel = findViewById<ViewFlipper>(R.id.carousel)
         val promotions: List<Dessert> = desserts.filter { dessert -> dessert.promotion}

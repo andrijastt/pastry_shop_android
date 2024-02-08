@@ -78,9 +78,11 @@ class LogIn : AppCompatActivity() {
             if(intent.getStringExtra("carts") != null){
                 intent.putExtra("carts", gson.toJson(cartItems))
             }
+            else intent.putExtra("carts", intent.getStringExtra("carts"))
             if(intent.getStringExtra("comments") != null){
                 intent.putExtra("comments", gson.toJson(comments))
             }
+            else intent.putExtra("comments", intent.getStringExtra("comments"))
             startActivity(intent)
         }
         else {

@@ -14,10 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 
 
-class DessertBaseAdapter(private val desserts: List<Dessert>, user: User):
+class DessertBaseAdapter(private val desserts: List<Dessert>, user: User, users: ArrayList<User>,
+    notifications: ArrayList<Notification>, carts: ArrayList<CartItem>, comments: ArrayList<Comment>, allDesserts: ArrayList<Dessert>):
     RecyclerView.Adapter<DessertBaseAdapter.MyViewHolder>() {
 
-        private var usr = user
+    private var user = user
+    private var users: ArrayList<User> = users
+    private var notifications: ArrayList<Notification> = notifications
+    private var carts: ArrayList<CartItem> = carts
+    private var comments: ArrayList<Comment> = comments
+    private var allDesserts: ArrayList<Dessert> = allDesserts
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val dessertImage : ImageView = itemView.findViewById(R.id.img)
@@ -51,7 +57,12 @@ class DessertBaseAdapter(private val desserts: List<Dessert>, user: User):
             intent.putExtra("dessertItemID", currentItem.id)
             intent.putExtra("dessertItem", Gson().toJson(currentItem))
 
-            intent.putExtra("user", Gson().toJson(usr))
+            intent.putExtra("user", Gson().toJson(user))
+            intent.putExtra("users", Gson().toJson(users))
+            intent.putExtra("desserts", Gson().toJson(allDesserts))
+            intent.putExtra("notifications", Gson().toJson(notifications))
+            intent.putExtra("carts", Gson().toJson(carts))
+            intent.putExtra("comments", Gson().toJson(comments))
             holder.itemView.context.startActivity(intent)
         })
     }

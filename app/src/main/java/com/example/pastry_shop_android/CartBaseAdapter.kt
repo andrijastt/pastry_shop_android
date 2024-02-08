@@ -30,7 +30,7 @@ class CartBaseAdapter(private val cartItems: List<CartItem>):
         val currentItem = cartItems[position]
         holder.cartItemImage.setImageResource(currentItem.dessert.picture)
         holder.cartItemNameAndAmount.setText(currentItem.amount.toString() + " x " + currentItem.dessert.name)
-        holder.cartItemPrice.setText((currentItem.amount * currentItem.dessert.price).toString())
+        holder.cartItemPrice.setText((currentItem.amount * currentItem.dessert.price).toString() + " RSD")
     }
 
 }
