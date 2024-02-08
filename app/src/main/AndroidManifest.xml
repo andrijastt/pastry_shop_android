@@ -26,6 +26,7 @@
         <activity android:name=".UserData" android:exported="false"/>
         <activity android:name=".DessertItem" android:exported="false"/>
         <activity android:name=".NotificationActivity" android:exported="false"/>
+        <activity android:name=".CartActivity" android:exported="false"/>
     </application>
 
 </manifest>

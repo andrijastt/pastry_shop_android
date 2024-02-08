@@ -32,6 +32,7 @@ class Buyer : AppCompatActivity() {
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
                         startActivity(intent)
                     }
                     R.id.userData -> {
@@ -39,6 +40,8 @@ class Buyer : AppCompatActivity() {
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+
                         startActivity(intent)
                     }
                     R.id.passwordData -> {
@@ -46,12 +49,15 @@ class Buyer : AppCompatActivity() {
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
                         startActivity(intent)
                     }
                     R.id.logOut -> {
                         var intent = Intent(this.applicationContext, LogIn::class.java)
+                        intent.removeExtra("user")
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
                         startActivity(intent)
                     }
                     R.id.notifications -> {
@@ -59,6 +65,15 @@ class Buyer : AppCompatActivity() {
                         intent.putExtra("user", this.intent.getStringExtra("user"))
                         intent.putExtra("users", this.intent.getStringExtra("users"))
                         intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
+                        startActivity(intent)
+                    }
+                    R.id.cart -> {
+                        var intent = Intent(this.applicationContext, CartActivity::class.java)
+                        intent.putExtra("user", this.intent.getStringExtra("user"))
+                        intent.putExtra("users", this.intent.getStringExtra("users"))
+                        intent.putExtra("notifications", this.intent.getStringExtra("notifications"))
+                        intent.putExtra("carts", this.intent.getStringExtra("carts"))
                         startActivity(intent)
                     }
                     else -> Toast.makeText(this, "Item: " + it.title, Toast.LENGTH_SHORT).show()

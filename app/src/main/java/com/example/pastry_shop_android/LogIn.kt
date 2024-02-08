@@ -40,6 +40,8 @@ class LogIn : AppCompatActivity() {
         Notification(users[1], listOf(desserts[2], desserts[8], desserts[3]), listOf(3, 2, 4), true)
     )
 
+    public var cartItems: List<CartItem> = listOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in)
@@ -72,6 +74,9 @@ class LogIn : AppCompatActivity() {
             intent.putExtra("user", gson.toJson(userFound))
             intent.putExtra("desserts", gson.toJson(desserts))
             intent.putExtra("notifications", gson.toJson(notifications))
+            if(intent.getStringExtra("carts") != null){
+                intent.putExtra("carts", gson.toJson(cartItems))
+            }
             startActivity(intent)
         }
         else {

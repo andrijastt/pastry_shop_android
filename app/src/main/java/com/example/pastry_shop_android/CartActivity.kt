@@ -2,20 +2,21 @@ package com.example.pastry_shop_android
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.EditText
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class PasswordData: AppCompatActivity() {
+class CartActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.password_data)
+        setContentView(R.layout.cart)
 
         val dropdown_menu = findViewById<ImageView>(R.id.dropdown_menu)
         dropdown_menu.setOnClickListener {
@@ -80,40 +81,27 @@ class PasswordData: AppCompatActivity() {
             }
             popUpMenu.show()
         }
-    }
 
-    fun changePassword(view: View){
+        val curUser = Gson().fromJson(intent.getStringExtra("user"), User::class.java)
+        var cartItems: List<CartItem> = listOf()
+        val itemType = object : TypeToken<List<CartItem>>(){}.type
 
-        val user: User = Gson().fromJson(this.intent.getStringExtra("user"), User::class.java)
+        val temp: String? = intent.getStringExtra("carts")
+        if(temp != null){
+            cartItems = Gson().fromJson(intent.getStringExtra("carts"), itemType)
+        }
 
-        val oldPassword = findViewById<EditText>(R.id.oldPassword).text.toString()
-        val newPassword = findViewById<EditText>(R.id.newPassword).text.toString()
-        val newPasswordConfirm = findViewById<EditText>(R.id.newPasswordConfirm).text.toString()
+        var userCartItems = cartItems.filter { cartItem ->  cartItem.user.id == curUser.id}
 
-        if(!oldPassword.equals(user.password) || !newPassword.equals(newPasswordConfirm)){
-            Toast.makeText(this, "Pogresno uneti podaci", Toast.LENGTH_SHORT).show()
+        if(userCartItems.isEmpty()){
+            var button = findViewById<Button>(R.id.acceptButton)
+            button.visibility = Button.INVISIBLE
             return
         }
 
-        user.password = newPassword
-        val itemType = object : TypeToken<List<User>>(){}.type
-        val users: MutableList<User> =
-            Gson().fromJson<List<User>>(this.intent.getStringExtra("users"), itemType).toMutableList()
-
-        for (i in 0..users.count()) {
-            if(users[i].id == user.id){
-                users[i] = user
-                break }
-        }
-
-        Toast.makeText(this, "Lozinka uspesno promenjena", Toast.LENGTH_SHORT).show()
-
-        findViewById<EditText>(R.id.oldPassword).text = null
-        findViewById<EditText>(R.id.newPassword).text = null
-        findViewById<EditText>(R.id.newPasswordConfirm).text = null
-
-        intent.putExtra("user", Gson().toJson(user))
-        intent.putExtra("users", Gson().toJson(users))
+        var userCartItemsView = findViewById<RecyclerView>(R.id.userCartItems)
+        userCartItemsView.layoutManager = LinearLayoutManager(this)
+        userCartItemsView.setHasFixedSize(true)
+        userCartItemsView.adapter = CartBaseAdapter(userCartItems)
     }
-
 }
