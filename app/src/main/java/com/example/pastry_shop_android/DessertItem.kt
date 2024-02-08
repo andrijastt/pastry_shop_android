@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -122,6 +123,14 @@ class DessertItem: AppCompatActivity() {
                 true
             }
             popUpMenu.show()
+        }
+
+        var addCommentButton : Button= findViewById<Button>(R.id.addComment)
+        addCommentButton.setOnClickListener {
+            var comment = findViewById<EditText>(R.id.newComment).text.toString()
+            if(!comment.equals("")){
+
+            }
         }
     }
 
