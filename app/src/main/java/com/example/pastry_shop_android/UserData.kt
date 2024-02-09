@@ -106,11 +106,11 @@ class UserData: AppCompatActivity() {
         val address = findViewById<EditText>(R.id.address).text.toString()
         val telephone = findViewById<EditText>(R.id.telephone).text.toString()
 
-        if(username != null) user.username = username
-        if(firstname != null) user.firstname = firstname
-        if(lastname != null) user.lastname = lastname
-        if(address != null) user.address = address
-        if(telephone != null) user.telephone = telephone
+        if(username != "") user.username = username
+        if(firstname != "") user.firstname = firstname
+        if(lastname != "") user.lastname = lastname
+        if(address != "") user.address = address
+        if(telephone != "") user.telephone = telephone
 
         val itemType = object : TypeToken<ArrayList<User>>(){}.type
         val users: ArrayList<User> = Gson().fromJson(this.intent.getStringExtra("users"), itemType)
